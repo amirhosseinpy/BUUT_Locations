@@ -24,7 +24,8 @@ class LocationsListCoordinator: Coordinatable {
   }
   
   func start() {
-    let interactor = LocationsListInteractor()
+    let networkService = LocationsNetworkService()
+    let interactor = LocationsListInteractor(networkService: networkService)
     let presenter = LocationsListPresenter()
     let viewController = LocationsListViewController()
     viewController.interactor = interactor

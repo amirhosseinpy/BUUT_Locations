@@ -9,8 +9,9 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-static let configName = "Default Configuration"
-
+  enum Constants {
+    static let configName = "Default Configuration"
+  }
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
@@ -22,7 +23,7 @@ static let configName = "Default Configuration"
   func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
     // Called when a new scene session is being created.
     // Use this method to select a configuration to create the new scene with.
-    return UISceneConfiguration(name: AppDelegate.configName, sessionRole: connectingSceneSession.role)
+    return UISceneConfiguration(name: Constants.configName, sessionRole: connectingSceneSession.role)
   }
 
   func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
