@@ -77,7 +77,6 @@ struct LocationModel {
 ### LocationTableViewCell
 - Custom cell displaying:
   - Location name
-  - Address
   - Coordinates (latitude, longitude)
 
 ## Requirements
@@ -111,7 +110,8 @@ The app launches with a navigation controller displaying the locations list. The
 - Include Core Data for offline storage
 - Add location sharing capabilities
 - Implement user location tracking
-- Implement more robust base network layer 
+- Implement more robust base network layer
+- Consider large list of locations
 
 ## License
 
