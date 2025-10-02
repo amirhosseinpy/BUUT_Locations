@@ -9,6 +9,9 @@ import UIKit
 
 protocol LocationsListViewable: AnyObject {
   func show(locations: [LocationViewModel])
+  func showError(message: String)
+  func showLoading()
+  func hideLoading()
 }
 
 extension LocationsListViewController {
@@ -48,20 +51,33 @@ class LocationsListViewController: UIViewController {
   
   private func fetchData() {
     Task {
-      do {
-        try await interactor?.requestLocations()
-      } catch {
-        print("Failed to fetch locations \(error)")
-      }
+      await interactor?.requestLocations()
     }
   }
 }
 
 extension LocationsListViewController: LocationsListViewable {
-
   func show(locations: [LocationViewModel]) {
     self.items = locations
+    customView.errorLabel.isHidden = true
+    customView.tableView.isHidden = false
     customView.tableView.reloadData()
+  }
+
+  func showError(message: String) {
+    customView.errorLabel.text = message
+    customView.errorLabel.isHidden = false
+    customView.tableView.isHidden = true
+  }
+  
+  func showLoading() {
+    customView.loadingIndicator.startAnimating()
+    customView.tableView.isHidden = true
+    customView.errorLabel.isHidden = true
+  }
+
+  func hideLoading() {
+    customView.loadingIndicator.stopAnimating()
   }
 }
 

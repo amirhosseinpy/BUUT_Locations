@@ -10,13 +10,20 @@ import CoreLocation
 
 @MainActor
 protocol LocationsListPresentable {
+  func presentLoading()
   func present(locations: [LocationModel])
+  func presentError(_ error: Error)
 }
 
 class LocationsListPresenter: LocationsListPresentable {
   weak var view: LocationsListViewable?
-  
+
+  func presentLoading() {
+    view?.showLoading()
+  }
+
   func present(locations: [LocationModel]) {
+    view?.hideLoading()
     let viewModels: [LocationViewModel] = locations.map { location in
       let locationViewModel = LocationViewModel(
         name: location.name ?? "No Name",
@@ -24,5 +31,27 @@ class LocationsListPresenter: LocationsListPresentable {
       return locationViewModel
     }
     view?.show(locations: viewModels)
+  }
+
+  func presentError(_ error: Error) {
+    view?.hideLoading()
+    let errorMessage: String
+    if let urlError = error as? URLError {
+      switch urlError.code {
+      case .notConnectedToInternet:
+        errorMessage = "No internet connection. Please check your network settings."
+      case .timedOut:
+        errorMessage = "The request timed out. Please try again."
+      case .badURL:
+        errorMessage = "Invalid URL. Please contact support."
+      case .badServerResponse:
+        errorMessage = "Server error. Please try again later."
+      default:
+        errorMessage = "Network error: \(urlError.localizedDescription)"
+      }
+    } else {
+      errorMessage = "Failed to load locations: \(error.localizedDescription)"
+    }
+    view?.showError(message: errorMessage)
   }
 }

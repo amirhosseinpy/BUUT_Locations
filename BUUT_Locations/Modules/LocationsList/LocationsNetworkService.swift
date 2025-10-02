@@ -27,7 +27,8 @@ class LocationsNetworkService: LocationsNetworkServicable {
   }
   
   
-  /// This is a simple fetch request. If we have time we can make a base request class using Generic for request and response and able to add token and throw more meaningful errors.
+  // This is a simple fetch request. If we have time we can make a base request class using Generic for request and response and able to add token and throw more meaningful errors.
+  
   func fetchLocations() async throws -> [LocationModel] {
     guard let url = URL(string: Constants.urlString) else {
       throw URLError(.badURL)

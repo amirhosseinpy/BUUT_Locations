@@ -7,22 +7,33 @@
 
 import Foundation
 
-
 protocol LocationsListInteractable: AnyObject {
-  func requestLocations() async throws
+  func requestLocations() async
 }
 
+@MainActor
 class LocationsListInteractor: LocationsListInteractable {
   var presenter: LocationsListPresentable?
   var networkService: LocationsNetworkServicable
-  
+  private var isLoading: Bool = false // to prevent multiple reqeust to server and race condition safe
+
   init(networkService: LocationsNetworkServicable) {
     self.networkService = networkService
   }
-  
-  func requestLocations() async throws {
-    let locations = try await networkService.fetchLocations()
-    presenter?.present(locations: locations)
+
+  func requestLocations() async {
+    guard !isLoading else { return }
+
+    isLoading = true
+    presenter?.presentLoading()
+    do {
+      let locations = try await networkService.fetchLocations()
+      presenter?.present(locations: locations)
+      isLoading = false
+    } catch {
+      presenter?.presentError(error)
+      isLoading = false
+    }
   }
 }
 

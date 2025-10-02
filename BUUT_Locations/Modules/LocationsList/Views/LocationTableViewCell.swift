@@ -70,7 +70,7 @@ class LocationTableViewCell: UITableViewCell, Reusable {
   
   func configure(with location: LocationViewModel) {
     nameLabel.text = location.name
-    coordinatesLabel.text = String(format: Constants.coordinateFormat, location.coordinate.latitude, location.coordinate.longitude)
+    coordinatesLabel.text = unsafe String(format: Constants.coordinateFormat, location.coordinate.latitude, location.coordinate.longitude)
   }
   
   override func prepareForReuse() {
