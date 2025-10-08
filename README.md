@@ -112,6 +112,7 @@ The app launches with a navigation controller displaying the locations list. The
 - Implement user location tracking
 - Implement more robust base network layer
 - Consider large list of locations
+- Consider navigation back management through Coordinator
 
 ## License
 
