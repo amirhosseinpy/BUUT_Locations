@@ -110,7 +110,7 @@ The app launches with a navigation controller displaying the locations list. The
 - Include Core Data for offline storage
 - Add location sharing capabilities
 - Implement user location tracking
-- Implement more robust base network layer
+- Implement more robust base network layer with error handling
 - Consider large list of locations
 - Consider navigation back management through Coordinator
 

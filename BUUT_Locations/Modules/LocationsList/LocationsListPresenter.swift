@@ -33,6 +33,7 @@ class LocationsListPresenter: LocationsListPresentable {
     view?.show(locations: viewModels)
   }
 
+  // Base Error handling should happen in the Base network layer. This is a crude error handling
   func presentError(_ error: Error) {
     view?.hideLoading()
     let errorMessage: String

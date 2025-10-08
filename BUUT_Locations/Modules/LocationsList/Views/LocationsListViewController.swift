@@ -64,6 +64,7 @@ extension LocationsListViewController: LocationsListViewable {
     customView.tableView.reloadData()
   }
 
+  //This type of showing error only happens when we haven't had any data in the table already.
   func showError(message: String) {
     customView.errorLabel.text = message
     customView.errorLabel.isHidden = false
